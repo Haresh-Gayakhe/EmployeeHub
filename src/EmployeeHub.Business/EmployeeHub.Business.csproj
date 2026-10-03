@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <ProjectReference Include="..\EmployeeHub.DataAccess\EmployeeHub.DataAccess.csproj" />
     <ProjectReference Include="..\EmployeeHub.Entities\EmployeeHub.Entities.csproj" />
     <ProjectReference Include="..\EmployeeHub.Common\EmployeeHub.Common.csproj" />
   </ItemGroup>

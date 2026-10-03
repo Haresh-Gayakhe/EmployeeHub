@@ -1,4 +1,8 @@
+using EmployeeHub.Business.Interfaces;
+using EmployeeHub.Business.Services;
 using EmployeeHub.DataAccess.Context;
+using EmployeeHub.DataAccess.Repositories;
+using EmployeeHub.DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +19,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddScoped<IDepartmentService, DepartmentService>();
 
 var app = builder.Build();
 
