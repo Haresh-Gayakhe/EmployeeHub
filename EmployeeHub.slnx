@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/EmployeeHub.API/EmployeeHub.API.csproj" />
+    <Project Path="src/EmployeeHub.Business/EmployeeHub.Business.csproj" />
+    <Project Path="src/EmployeeHub.Common/EmployeeHub.Common.csproj" />
+    <Project Path="src/EmployeeHub.DataAccess/EmployeeHub.DataAccess.csproj" />
+    <Project Path="src/EmployeeHub.Entities/EmployeeHub.Entities.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/EmployeeHub.Tests/EmployeeHub.Tests.csproj" />
+  </Folder>
+</Solution>
