@@ -21,5 +21,23 @@ namespace EmployeeHub.DataAccess.Context
                 .WithOne(e => e.Department)
                 .HasForeignKey(e => e.DepartmentId);
         }
+
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken)
+        {
+            foreach(var entry in ChangeTracker.Entries<BaseEntity>())
+            {
+                if(entry.State == EntityState.Added)
+                {
+                    entry.Entity.CreatedDate = DateTime.UtcNow;
+                }
+
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Entity.ModifiedDate = DateTime.UtcNow;
+                }
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

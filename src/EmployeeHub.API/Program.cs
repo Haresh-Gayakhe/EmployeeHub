@@ -1,8 +1,11 @@
+using EmployeeHub.API.Middleware;
 using EmployeeHub.Business.Interfaces;
 using EmployeeHub.Business.Services;
 using EmployeeHub.DataAccess.Context;
 using EmployeeHub.DataAccess.Repositories;
 using EmployeeHub.DataAccess.Repositories.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +25,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<IDepartmentService, DepartmentService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 
@@ -33,6 +39,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 
 app.Run();

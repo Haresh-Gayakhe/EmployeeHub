@@ -43,7 +43,8 @@ namespace EmployeeHub.DataAccess.Repositories
 
         public void Delete(T entity)
         {
-            _dbSet.Remove(entity);
+            //_dbSet.Remove(entity);
+            
         }
 
         public async Task SaveChangesAsync()

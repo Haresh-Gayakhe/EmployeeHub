@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="16.2.0" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EmployeeHub.DataAccess\EmployeeHub.DataAccess.csproj" />
     <ProjectReference Include="..\EmployeeHub.Entities\EmployeeHub.Entities.csproj" />
     <ProjectReference Include="..\EmployeeHub.Common\EmployeeHub.Common.csproj" />

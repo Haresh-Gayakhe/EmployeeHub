@@ -1,4 +1,5 @@
-﻿using EmployeeHub.Business.Interfaces;
+﻿using AutoMapper;
+using EmployeeHub.Business.Interfaces;
 using EmployeeHub.DataAccess.Repositories.Interfaces;
 using EmployeeHub.Entities.DTOs.Department;
 using EmployeeHub.Entities.Models;
@@ -8,22 +9,18 @@ namespace EmployeeHub.Business.Services
     public class DepartmentService : IDepartmentService
     {
         private readonly IDepartmentRepository _repository;
-        public DepartmentService(IDepartmentRepository repository)
+        private readonly IMapper _mapper;
+        public DepartmentService(IDepartmentRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<DepartmentResponseDto>> GetAllAsync()
         {
             var departments = await _repository.GetAllAsync();
 
-            return departments.Select(d =>
-                new DepartmentResponseDto
-                {
-                    Id = d.Id,
-                    DepartmentName = d.DepartmentName,
-                    Description = d.Description,
-                });
+            return _mapper.Map<IEnumerable<DepartmentResponseDto>>(departments);
         }
 
         public async Task<DepartmentResponseDto?> GetByIdAsync(Guid id)
@@ -33,23 +30,12 @@ namespace EmployeeHub.Business.Services
             if(department == null)
                 return null;
 
-            return new DepartmentResponseDto
-            {
-                Id = department.Id,
-                DepartmentName = department.DepartmentName,
-                Description = department.Description,
-            };
+            return _mapper.Map<DepartmentResponseDto>(department);
         }
 
         public async Task CreateAsync(CreateDepartmentDto dto)
         {
-            var department = new Department
-            {
-                Id = Guid.NewGuid(),
-                DepartmentName = dto.DepartmentName,
-                Description = dto.Description,
-                CreatedDate = DateTime.UtcNow
-            };
+            var department = _mapper.Map<Department>(dto);
 
             await _repository.AddAsync(department);
             await _repository.SaveChangesAsync();
@@ -64,7 +50,7 @@ namespace EmployeeHub.Business.Services
 
             department.DepartmentName = dto.DepartmentName;
             department.Description = dto.Description;
-            department.ModifiedDate = DateTime.UtcNow;
+            //department.ModifiedDate = DateTime.UtcNow;
 
             _repository.Update(department);
             await _repository.SaveChangesAsync();
